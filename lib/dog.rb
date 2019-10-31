@@ -80,8 +80,8 @@ class Dog
       FROM dogs
       WHERE name = ?
     SQL
-    DB[:conn].execute(sql, name).map do |row|
-      self.new_from_db(row)
+    dog = DB[:conn].execute(sql, name).flatten
+      self.new(id: dog[0], name: dog[1], breed: dog[2])
     end
   end
 
